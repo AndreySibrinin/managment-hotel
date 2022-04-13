@@ -1,25 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import {useDispatch, useSelector} from "react-redux";
+import {getAccountsAction} from "./store/accountsReducer";
+import {getRoomsAction} from "./store/roomsReducer";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+    const rooms = useSelector(state => state.roomsReducer.rooms);
+    const accounts = useSelector(state => state.accountsReducer.accounts)
+    const dispatch = useDispatch()
+
+    return (
+        <div className="app">
+            <div className="btns">
+                <button className="btn" onClick={() => {dispatch(getRoomsAction())}}>ПОЛУЧИТЬ Комнаты-</button>
+            </div>
+            <div className="btns">
+                <button className="btn" onClick={() => {dispatch(getAccountsAction())}}>ПОЛУЧИТЬ Аккаунты</button>
+            </div>
+            <div className="rooms">
+                {
+                    rooms.map(room =>
+                    <div className="user" key={room.id}>
+                        {room.data.price}
+                    </div>
+                )}
+            </div>
+            <div className="accounts">
+                { accounts?.user1?.password}
+
+            </div>
+        </div>
+    );
 }
 
 export default App;
