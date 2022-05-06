@@ -19,7 +19,7 @@ const getAccounts = () =>
 
 function* fetchAccountWorker() {
     const data = yield call(getAccounts)
-    yield  console.log(data);
+
     if (data.error){
         yield put(getAccountsShowNotificationAction(data.error))
     }

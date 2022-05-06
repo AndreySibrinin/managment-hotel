@@ -1,35 +1,29 @@
-import {useDispatch, useSelector} from "react-redux";
-import {getAccountsAction} from "./store/accountsReducer";
-import {getRoomsAction} from "./store/roomsReducer";
+import {Route, Routes} from "react-router";
+import UserLogin from "./pages/UserLogin";
+import RoomsTablePage from "./pages/RoomsTablePage";
+import ProtectedRoutes from "./hoc/ProtectedRoutes";
+import MainLayout from "./components/MainLayout";
+import Test from "./pages/Test";
 
 function App() {
 
-    const rooms = useSelector(state => state.roomsReducer.rooms);
-    const accounts = useSelector(state => state.accountsReducer.accounts)
-    const dispatch = useDispatch()
 
     return (
-        <div className="app">
-            <div className="btns">
-                <button className="btn" onClick={() => {dispatch(getRoomsAction())}}>ПОЛУЧИТЬ Комнаты-</button>
-            </div>
-            <div className="btns">
-                <button className="btn" onClick={() => {dispatch(getAccountsAction())}}>ПОЛУЧИТЬ Аккаунты</button>
-            </div>
-            <div className="rooms">
-                {
-                    rooms.map(room =>
-                    <div className="user" key={room.id}>
-                        {room.data.price}
-                    </div>
-                )}
-            </div>
-            <div className="accounts">
-                { accounts?.user1?.password}
 
-            </div>
-        </div>
+    <Routes>
+                <Route path="/" element={<MainLayout />}>
+                    <Route element={<ProtectedRoutes />}>
+                        <Route index element={<RoomsTablePage />} />
+                    </Route>
+                </Route>
+        <Route path="/login" element={<UserLogin />} />
+    </Routes>
+
+
+
     );
+
+
 }
 
 export default App;
