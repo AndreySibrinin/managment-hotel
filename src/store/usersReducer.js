@@ -15,7 +15,7 @@ const defaultState = {
 export default function usersReducer(state = defaultState, action) {
     switch(action.type) {
         case LOGIN_SUCCESS:
-            return {...state, email: action.email, isAuth: true}
+            return {...state, email: action.payload, isAuth: true}
         case LOGOUT_SUCCESS:
             return {...state,  email: null, errorMessage: null, isAuth: false}
         case LOG_ERROR:

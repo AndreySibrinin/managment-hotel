@@ -6,6 +6,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {loginAction} from "../store/usersReducer";
 import {useNavigate} from "react-router";
 import {openNotification} from "../notification";
+import {getAccountsAction} from "../store/accountsReducer";
+import Checkbox from "antd/es/checkbox/Checkbox";
 
 const {  Content } = Layout;
 
@@ -14,6 +16,14 @@ const UserLogin = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const errorMessage = useSelector(state => state.usersReducer.errorMessage);
+
+    useEffect(() =>{
+        dispatch(getAccountsAction());
+
+        if(localStorage.authData !== undefined){
+            dispatch(loginAction({navigate, userData: JSON.parse(localStorage.authData)}));
+        }
+    },[]);
 
     useEffect(() => {
         if(errorMessage !== null){
@@ -24,7 +34,6 @@ const UserLogin = () => {
 
     const onFinish = (values) => {
        dispatch(loginAction({navigate, userData: values}));
-       console.log(values);
     };
 
     const onFinishFailed = (errorInfo) => {
@@ -55,8 +64,9 @@ const UserLogin = () => {
                                     autoComplete="off"
                                 >
                                     <Form.Item
+                                        labelAlign="left"
                                         name="email"
-                                        label="Email"
+                                        label="   Email"
                                         rules={[
                                             {
                                                 type: "email",
@@ -68,6 +78,7 @@ const UserLogin = () => {
                                         <Input />
                                     </Form.Item>
                                     <Form.Item
+                                        labelAlign="left"
                                         label="Password"
                                         name="password"
                                         rules={[
@@ -81,6 +92,10 @@ const UserLogin = () => {
                                         <Input.Password />
                                     </Form.Item>
 
+                                    <Form.Item name="remember" valuePropName="checked" >
+                                        <Checkbox>Remember me</Checkbox>
+                                    </Form.Item>
+
                                     <Form.Item
                                         wrapperCol={{
                                             offset: 10,
@@ -91,6 +106,7 @@ const UserLogin = () => {
                                             Log in
                                         </Button>
                                     </Form.Item>
+
                                 </Form>
                             </Col>
                 </Row>

@@ -3,10 +3,8 @@ import UserLogin from "./pages/UserLogin";
 import RoomsTablePage from "./pages/RoomsTablePage";
 import ProtectedRoutes from "./hoc/ProtectedRoutes";
 import MainLayout from "./components/MainLayout";
-import Test from "./pages/Test";
 
 function App() {
-
 
     return (
 
@@ -16,7 +14,8 @@ function App() {
                         <Route index element={<RoomsTablePage />} />
                     </Route>
                 </Route>
-        <Route path="/login" element={<UserLogin />} />
+                <Route path="/login" element={<UserLogin />} />
+
     </Routes>
 
 
