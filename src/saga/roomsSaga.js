@@ -20,7 +20,8 @@ const getRooms = () =>
     });
 
 function* fetchRoomWorker() {
-   const data = yield call(getRooms)
+   const data = yield call(getRooms);
+   console.log(data);
     if (data.error){
      yield put(getRoomsShowNotificationAction(data.error))
     }

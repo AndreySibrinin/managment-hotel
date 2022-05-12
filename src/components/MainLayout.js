@@ -13,7 +13,6 @@ const MainLayout = () => {
         if(errorMessage !== null){
             openNotification('error', 'top', errorMessage);
         }
-        console.log('LAYOUT');
     });
 
     return (
