@@ -3,12 +3,20 @@ import {Row, Col, Button, Space, Checkbox} from 'antd';
 import {useSelector} from "react-redux";
 import {Table} from "antd";
 import {useNavigate} from "react-router";
+import React from "react";
+
 const RoomsTablePage = () => {
 
     const navigate = useNavigate();
     const rooms = useSelector(state => state.roomsReducer.rooms);
     const dataSource = rooms?.map(item =>({...item.data, key: item.id}));
     const [filteredInfo, setFilteredInfo] = useState({type:["standard", "suite"], occupancy: [3,4]});
+    const [sortedInfo, setSortedInfo] = useState(
+        {
+            "order": "ascend",
+            "columnKey": "price"
+        }
+    );
     const [checked, setChecked] = useState(false);
 
 
@@ -25,10 +33,12 @@ const RoomsTablePage = () => {
 
     const handleChange = (pagination, filters, sorter) => {
         setFilteredInfo(filters);
+        setSortedInfo(sorter);
     };
 
     const clearFilters = () => {
         setFilteredInfo({});
+        setSortedInfo({});
         setChecked(false);
     };
 
@@ -80,14 +90,13 @@ const RoomsTablePage = () => {
             ],
             onFilter:(value, item)=> (item.occupancy === value),
             filteredValue: filteredInfo.occupancy || null,
-
         },
         {
             title: 'Price',
             dataIndex: 'price',
             key: 'price',
             sorter: (a,b) => a.price - b.price,
-            defaultSortOrder: "ascend",
+            sortOrder:  sortedInfo?.columnKey === "price" && sortedInfo?.order,
         },
         {
             title: 'Guest',
@@ -130,6 +139,4 @@ const RoomsTablePage = () => {
 
         );
     }
-
-
 export default RoomsTablePage;
