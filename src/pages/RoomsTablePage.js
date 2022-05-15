@@ -9,7 +9,7 @@ const RoomsTablePage = () => {
 
     const navigate = useNavigate();
     const rooms = useSelector(state => state.roomsReducer.rooms);
-    const dataSource = rooms?.map(item =>({...item.data, key: item.id}));
+    const dataSource = rooms.map(item =>({...item.data, key: item.id})) || null;
     const [filteredInfo, setFilteredInfo] = useState({type:["standard", "suite"], occupancy: [3,4]});
     const [sortedInfo, setSortedInfo] = useState(
         {

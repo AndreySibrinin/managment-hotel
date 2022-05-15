@@ -33,7 +33,7 @@ const SingleRoomPage = () => {
                 <Col span={11} offset = {1}>
                     <Carousel autoplay>
                         {currentRoom.gallery.map(image =>(
-                            <div>
+                            <div key={image}>
                                 <Image
                                     width="100%"
                                     height={400}
