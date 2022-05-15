@@ -45,7 +45,6 @@ const UserLogin = () => {
     return (
 
         <Layout>
-            {}
             <Content style={{height:"100vh"}}>
                 <Row type="flex" justify="center" align="middle" style={{minHeight: '100vh'}}>
                     <Col span={8} style={{backgroundColor: "white", padding: "20px"}}>

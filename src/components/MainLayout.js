@@ -16,9 +16,9 @@ const MainLayout = () => {
     });
 
     return (
-        <Layout>
+        <Layout style={{height: "100vh"}}>
             <HeaderLayout/>
-            <Content style={{height: "100vh"}}>
+            <Content>
                 <Outlet/>
             </Content>
         </Layout>

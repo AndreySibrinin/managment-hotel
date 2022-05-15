@@ -116,11 +116,6 @@ const RoomsTablePage = () => {
         return (
             <>
                 <Row>
-                    <Col>
-
-                    </Col>
-                </Row>
-                <Row>
                     <Col span={22} offset = {1}>
                         <Space style={{ marginBottom: 16, marginTop: 16 }}>
                             <Button type="primary" onClick={clearFilters}>Clear all filters</Button>
