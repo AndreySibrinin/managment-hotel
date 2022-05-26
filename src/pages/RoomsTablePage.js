@@ -1,12 +1,14 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Row, Col, Button, Space, Checkbox} from 'antd';
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {Table} from "antd";
 import {useNavigate} from "react-router";
 import React from "react";
+import {getRoomsAction} from "../store/roomsReducer";
 
 const RoomsTablePage = () => {
 
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const rooms = useSelector(state => state.roomsReducer.rooms);
     const dataSource = rooms.map(item =>({...item.data, key: item.id})) || null;
@@ -19,6 +21,9 @@ const RoomsTablePage = () => {
     );
     const [checked, setChecked] = useState(false);
 
+    useEffect(() =>{
+        dispatch(getRoomsAction());
+    }, []);
 
     const onChangeCheckBox = e => {
         setChecked(e.target.checked);
@@ -29,7 +34,6 @@ const RoomsTablePage = () => {
             setFilteredInfo({...filteredInfo, guest: null});
         }
     };
-
 
     const handleChange = (pagination, filters, sorter) => {
         setFilteredInfo(filters);

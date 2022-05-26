@@ -20,8 +20,6 @@ const UserLogin = () => {
 
     useEffect(() =>{
         dispatch(getAccountsAction());
-        dispatch(getRoomsAction());
-
         if(localStorage.authData !== undefined){
             dispatch(loginAction({navigate, userData: JSON.parse(localStorage.authData)}));
         }

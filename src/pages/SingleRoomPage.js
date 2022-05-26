@@ -1,24 +1,17 @@
-import React, {useState} from 'react';
 import {useParams} from "react-router-dom";
 import {useSelector} from "react-redux";
-import {Button, Carousel, Checkbox, Col, Descriptions, Image, List, Row, Space} from "antd";
+import {Button, Carousel, Col, Descriptions, Image, List, Row, Space} from "antd";
 import {CheckOutlined, HomeOutlined} from "@ant-design/icons";
 import {useNavigate} from "react-router";
-
+import CheckOutModal from "../components/CheckOutModal";
+import CheckInModal from "../components/CheckInModal";
 
 const SingleRoomPage = () => {
     const navigate = useNavigate();
-
     const {id} = useParams();
     const rooms = useSelector(state => state.roomsReducer.rooms);
     const currentRoom = rooms.find(room => room.id === id ).data;
-    const contentStyle = {
-        height: '160px',
-        color: '#fff',
-        lineHeight: '160px',
-        textAlign: 'center',
-        background: '#364d79',
-    };
+
     return (
         <>
             <Row>
@@ -52,8 +45,8 @@ const SingleRoomPage = () => {
 
                         <Col align="end" span={12}>
                             <Space >
-                                <Button>Check In</Button>
-                                <Button>Check Out</Button>
+                                <CheckInModal id={currentRoom.id} />
+                                <CheckOutModal number={currentRoom.number} id={currentRoom.id}/>
                             </Space>
                         </Col>
                     </Row>
@@ -82,8 +75,7 @@ const SingleRoomPage = () => {
             </Row>
             <Row style={{
                 paddingTop: "100px"
-            }
-            }>
+            }}>
                 <Col offset={1} span={21}>
 
                     <Descriptions>

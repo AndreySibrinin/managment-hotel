@@ -3,28 +3,14 @@ import {get} from "firebase/database";
 import {accountsRef} from "../firebase/firebase";
 import {GET_ACCOUNTS, getAccountsShowNotificationAction, getAccountsSuccessAction} from "../store/accountsReducer";
 
-const getAccounts = () =>
-    get(accountsRef)
-        .then((snapshot) => {
-            if (snapshot.exists()) {
-                return snapshot.val();
-            }
-            else {
-                return {error: "No data available"};
-            }
-        })
-        .catch((error) => {
-            return {error: error};
-        });
-
 function* fetchAccountWorker() {
-    const data = yield call(getAccounts)
-
-    if (data.error){
-        yield put(getAccountsShowNotificationAction(data.error))
-    }
-    else{
+    try{
+        const snapshot = yield call(get, accountsRef);
+        const data = snapshot.val();
         yield put(getAccountsSuccessAction(data))
+    }
+    catch (error) {
+        yield put(getAccountsShowNotificationAction(error))
     }
 }
 
