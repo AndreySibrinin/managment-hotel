@@ -8,7 +8,6 @@ import {useNavigate} from "react-router";
 import {openNotification} from "../notification";
 import {getAccountsAction} from "../store/accountsReducer";
 import Checkbox from "antd/es/checkbox/Checkbox";
-import {getRoomsAction} from "../store/roomsReducer";
 
 const {  Content } = Layout;
 
