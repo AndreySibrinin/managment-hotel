@@ -1,8 +1,8 @@
 import {notification} from "antd";
 
-export const openNotification = (type, placement, errorMessage) => {
+export const openNotification = (type, placement, title, errorMessage) => {
     notification[type]({
-        message: `Error LogIn`,
+        message: title,
         description: errorMessage,
         placement,
     });

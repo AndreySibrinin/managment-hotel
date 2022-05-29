@@ -5,13 +5,16 @@ import {Table} from "antd";
 import {useNavigate} from "react-router";
 import React from "react";
 import {getRoomsAction} from "../store/roomsReducer";
+import {openNotification} from "../notification";
 
 const RoomsTablePage = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const rooms = useSelector(state => state.roomsReducer.rooms);
+    const rooms = useSelector(state => state.roomsReducer.rooms) || [];
     const dataSource = rooms.map(item =>({...item.data, key: item.id})) || null;
+    const errorRooms = useSelector(state => state.roomsReducer.error);
+
     const [filteredInfo, setFilteredInfo] = useState({type:["standard", "suite"], occupancy: [3,4]});
     const [sortedInfo, setSortedInfo] = useState(
         {
@@ -21,8 +24,14 @@ const RoomsTablePage = () => {
     );
     const [checked, setChecked] = useState(false);
 
+    useEffect(() => {
+        if(errorRooms !== null){
+            openNotification('error', 'top', `Error get Rooms`, 'Rooms is not available now.',);
+        }
+    },[errorRooms]);
+
     useEffect(() =>{
-        dispatch(getRoomsAction());
+            dispatch(getRoomsAction());
     }, []);
 
     const onChangeCheckBox = e => {

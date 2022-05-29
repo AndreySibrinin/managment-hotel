@@ -15,7 +15,7 @@ const UserLogin = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const errorMessage = useSelector(state => state.usersReducer.errorMessage);
+    const errorLogIn = useSelector(state => state.usersReducer.errorMessage);
 
     useEffect(() =>{
         dispatch(getAccountsAction());
@@ -25,10 +25,10 @@ const UserLogin = () => {
     },[]);
 
     useEffect(() => {
-        if(errorMessage !== null){
-         openNotification('error', 'top', errorMessage);
+        if(errorLogIn !== null){
+         openNotification('error', 'top', `Error LogIn`, "Invalid username or password");
         }
-    },[errorMessage]);
+    },[errorLogIn]);
 
 
     const onFinish = (values) => {

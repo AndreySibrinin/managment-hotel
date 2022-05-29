@@ -3,14 +3,15 @@ export const GET_ACCOUNTS_SUCCESS = "getAccountsSuccess";
 export const SHOW_NOTIFICATION = "ShownNotification";
 
 const defaultState ={
-    accounts: {}
+    accounts: {},
+    errorAccounts: null
 }
 export default function accountsReducer(state = defaultState, action) {
     switch(action.type) {
         case GET_ACCOUNTS_SUCCESS:
             return {...state, accounts: action.payload}
         case SHOW_NOTIFICATION:
-            return {...state, accounts: action.payload}
+            return {...state, errorAccounts: action.payload}
         default: return state;
     }
 }

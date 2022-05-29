@@ -45,8 +45,8 @@ const SingleRoomPage = () => {
 
                         <Col align="end" span={12}>
                             <Space >
-                                <CheckInModal id={currentRoom.id} />
-                                <CheckOutModal number={currentRoom.number} id={currentRoom.id}/>
+                                <CheckInModal room={currentRoom} />
+                                <CheckOutModal room={currentRoom}/>
                             </Space>
                         </Col>
                     </Row>

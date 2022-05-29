@@ -6,7 +6,7 @@ import {useDispatch} from "react-redux";
 import {checkAction} from "../store/roomsReducer";
 import moment from "moment";
 
-const CheckInModal = ({id}) => {
+const CheckInModal = ({room}) => {
     const [isModalVisible, setIsModalVisible] = useState(false);
     const dispatch = useDispatch();
     const [form] = Form.useForm();
@@ -19,6 +19,7 @@ const CheckInModal = ({id}) => {
         setIsModalVisible(false);
         const guest = form.getFieldValue("guest");
         const checkOutDate =form.getFieldValue("date")?.format('YYYY-MM-DD');
+        const id = room.id;
 
         const values = {
             checkInDate:  moment().format('YYYY-MM-DD'),
@@ -28,6 +29,7 @@ const CheckInModal = ({id}) => {
         const data ={id, values, checkOutDate}
 
         dispatch(checkAction(data));
+        form.resetFields();
 
     };
 
@@ -46,7 +48,7 @@ const CheckInModal = ({id}) => {
     };
     return (
         <>
-            <Button type="primary" onClick={showModal}>
+            <Button type="primary" onClick={showModal} disabled={room.isCheckedIn}>
                Check In
             </Button>
             <Modal title="Check In" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}

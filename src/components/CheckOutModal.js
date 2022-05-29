@@ -3,7 +3,7 @@ import { Modal, Button } from 'antd';
 import {useDispatch} from "react-redux";
 import {checkAction} from "../store/roomsReducer";
 
-const CheckOutModal = ({number, id}) => {
+const CheckOutModal = ({room}) => {
     const [isModalVisible, setIsModalVisible] = useState(false);
     const dispatch = useDispatch();
 
@@ -18,6 +18,7 @@ const CheckOutModal = ({number, id}) => {
             isCheckedIn: false,
             guest: '',
         };
+        const id = room.id;
         const data ={id, values}
 
         dispatch(checkAction(data))
@@ -30,7 +31,7 @@ const CheckOutModal = ({number, id}) => {
 
     return (
         <>
-            <Button type="primary" onClick={showModal}>
+            <Button type="primary" onClick={showModal} disabled={!room.checkInDate}>
                 Check Out
             </Button>
             <Modal title="Check Out" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}
@@ -42,7 +43,7 @@ const CheckOutModal = ({number, id}) => {
                            Confirm
                        </Button>,
                    ]}>
-                <p>Do you confirm the check out room {number}?</p>
+                <p>Do you confirm the check out room {room.number}?</p>
             </Modal>
         </>
     );
